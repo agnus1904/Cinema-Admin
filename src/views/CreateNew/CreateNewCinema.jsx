@@ -165,6 +165,8 @@ const CreateNewCinema = ()=>{
         setData(newData);
     }
 
+
+
     console.log(data, "cinemas");
 
 

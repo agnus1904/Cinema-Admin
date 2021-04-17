@@ -39,6 +39,10 @@ import RTLPage from "views/RTLPage/RTLPage.js";
 import CreateNewMovie from "./views/CreateNew/CreateNewMovie";
 import CreateNewActor from "./views/CreateNew/CreateNewActor";
 import CreateNewShowTime from "./views/CreateNew/CreateNewShowTime";
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import MovieCreationIcon from '@material-ui/icons/MovieCreation';
+import RecentActorsIcon from '@material-ui/icons/RecentActors';
+import SlideshowIcon from '@material-ui/icons/Slideshow';
 
 const dashboardRoutes = [
   {
@@ -53,7 +57,7 @@ const dashboardRoutes = [
     path: "/create-cinema",
     name: "Create New Cinema",
     rtlName: "لوحة القيادة",
-    icon: Dashboard,
+    icon: AccountBalanceIcon,
     component: CreateNewCinema,
     layout: "/admin"
   },
@@ -61,7 +65,7 @@ const dashboardRoutes = [
     path: "/create-movie",
     name: "Create New Movie",
     rtlName: "لوحة القيادة",
-    icon: Dashboard,
+    icon: SlideshowIcon,
     component: CreateNewMovie,
     layout: "/admin"
   },
@@ -69,7 +73,7 @@ const dashboardRoutes = [
     path: "/create-actor",
     name: "Create New Actor",
     rtlName: "لوحة القيادة",
-    icon: Dashboard,
+    icon: RecentActorsIcon,
     component: CreateNewActor,
     layout: "/admin"
   },
@@ -77,7 +81,7 @@ const dashboardRoutes = [
     path: "/create-show-time",
     name: "Create New Show Time",
     rtlName: "لوحة القيادة",
-    icon: Dashboard,
+    icon: MovieCreationIcon,
     component: CreateNewShowTime,
     layout: "/admin"
   },
@@ -105,22 +109,22 @@ const dashboardRoutes = [
     component: Typography,
     layout: "/admin"
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: BubbleChart,
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    rtlName: "خرائط",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/icons",
+  //   name: "Icons",
+  //   rtlName: "الرموز",
+  //   icon: BubbleChart,
+  //   component: Icons,
+  //   layout: "/admin"
+  // },
+  // {
+  //   path: "/maps",
+  //   name: "Maps",
+  //   rtlName: "خرائط",
+  //   icon: LocationOn,
+  //   component: Maps,
+  //   layout: "/admin"
+  // },
   {
     path: "/notifications",
     name: "Notifications",
@@ -129,22 +133,22 @@ const dashboardRoutes = [
     component: NotificationsPage,
     layout: "/admin"
   },
-  {
-    path: "/rtl-page",
-    name: "RTL Support",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: RTLPage,
-    layout: "/rtl"
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive,
-    component: UpgradeToPro,
-    layout: "/admin"
-  }
+  // {
+  //   path: "/rtl-page",
+  //   name: "RTL Support",
+  //   rtlName: "پشتیبانی از راست به چپ",
+  //   icon: Language,
+  //   component: RTLPage,
+  //   layout: "/rtl"
+  // },
+  // {
+  //   path: "/upgrade-to-pro",
+  //   name: "Upgrade To PRO",
+  //   rtlName: "التطور للاحترافية",
+  //   icon: Unarchive,
+  //   component: UpgradeToPro,
+  //   layout: "/admin"
+  // }
 ];
 
 export default dashboardRoutes;

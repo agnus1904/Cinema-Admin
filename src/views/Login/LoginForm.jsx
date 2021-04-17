@@ -147,7 +147,7 @@ const LoginForm = (props)=>{
                     <Box display="flex" justifyContent="center" width="100%">
                         <Button color="primary"
                                 onClick={fetchDataCheckLogin}
-                        >Create New</Button>
+                        >Login</Button>
                     </Box>
                 </CardFooter>
             </Card>
