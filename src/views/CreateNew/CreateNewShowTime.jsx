@@ -100,11 +100,6 @@ const CreateNewCinema = ()=>{
         header: [],
         Content: [],
     });
-    const [table2, setTable2] = React.useState({
-        Title: "",
-        header: [],
-        Content: [],
-    });
 
     const [groups, setGroups ] = React.useState({});
 
@@ -129,6 +124,7 @@ const CreateNewCinema = ()=>{
 
         }else{
             console.log("have rooms id");
+            const rooms_id_error = [];
             for(let room_id of data.rooms_id){
 
                 let dataFetch = new FormData();
@@ -138,26 +134,48 @@ const CreateNewCinema = ()=>{
                 dataFetch.append("movie_id", data.movie_id);
                 dataFetch.append("show_time_date", data.show_time_date);
                 let response = await axios.post(
-                    `http://localhost/Cinema/Admin/CreateNewShowTime`, dataFetch
+                    `http://localhost/Cinema/Admin/CheckNewShowTime`, dataFetch
                 );
                 const res = await response.data;
 
-                // const room_id = res.room_id;
-                // for (let value in data.rooms){
-                //     console.log(value);
-                //
-                //     // if(res.room_id == Object.values(value)[0]){
-                //     //     console.log(Object.values(value)[1])
-                //     // }else{
-                //     //     console.log(res.room_id);
-                //     // }
-                // }
-
-                console.log(res.Checked, room_id,"Check");
+                if(res.Checked>0){
+                    rooms_id_error.push(room_id);
+                }
             }
-            setStatus("Success");
-            setOpen(true);
-            setColor("success") ;
+            if(rooms_id_error.length===0){
+                for(let room_id of data.rooms_id){
+
+                    let dataFetch = new FormData();
+                    dataFetch.append("province_id", data.province_id);
+                    dataFetch.append("cinema_id", data.cinema_id);
+                    dataFetch.append("room_id", room_id);
+                    dataFetch.append("movie_id", data.movie_id);
+                    dataFetch.append("show_time_date", data.show_time_date);
+                    await axios.post(
+                        `http://localhost/Cinema/Admin/CreateNewShowTime`, dataFetch
+                    );
+
+                }
+                setStatus("Success");
+                setOpen(true);
+                setColor("success") ;
+            }else{
+                let statusError = rooms_id_error.map(
+                    (room_id)=>{
+                        return data.rooms.map(
+                            (room)=>{
+                                if(room.room_id===room_id){
+                                    return room.room_name
+                                }
+                            }
+                        ).filter(Boolean)[0]+" ";
+                    }
+                )
+
+                setStatus(statusError+"cant create a new show time");
+                setOpen(true);
+                setColor("danger") ;
+            }
         }
 
     }
@@ -252,7 +270,7 @@ const CreateNewCinema = ()=>{
         let newArray = [];
         for(let sub of res.data){
             let a = (Object.values(sub).slice(1));
-                // a.unshift("");
+            // a.unshift("");
             newArray.push(a);
         }
         let newGroups = {...groups};
@@ -265,6 +283,7 @@ const CreateNewCinema = ()=>{
     console.log(groups, "Groups");
 
 
+
     // Show Data To Table
     const showMovies = ()=>{
         let newArray = [];
@@ -274,7 +293,7 @@ const CreateNewCinema = ()=>{
             ob.push(
                 data.movie_id===ob[0] ?
                     (<Button
-                    color="success"
+                        color="success"
                         onClick={()=>handleMovieClick(ob[0])}
                     >
                         picked
@@ -308,7 +327,9 @@ const CreateNewCinema = ()=>{
 
     if(open===true){
         setTimeout(function() {
-            setOpen(false);
+            if (open===true){
+                setOpen(false);
+            }
         }, 6000);
     }
 
@@ -583,7 +604,7 @@ const CreateNewCinema = ()=>{
                         <CardFooter>
                             <Button color="primary"
                                     onClick={CreateNewShowTime}
-                                >
+                            >
                                 Create New</Button>
                             <Button color="primary"
                                     onClick={handleReset}
@@ -702,24 +723,23 @@ const CreateNewCinema = ()=>{
                                                     }
                                                 }
                                             ).filter(Boolean)[0];
-                                            console.log(roomId,roomName);
                                             return(<Table
-                                                key={index}
-                                                tableHeaderColor="primary"
-                                                tableHead={[
-                                                    roomName
-                                                    ,"Time Start", "Time End"]}
-                                                tableData={
-                                                    value.map(
-                                                        (valueIndex)=>{
-                                                            let a = valueIndex.slice(2);
-                                                            a.unshift("");
-                                                            return a;
-                                                        }
-                                                    )
-                                                }
-                                            />
-                                        )}
+                                                    key={index}
+                                                    tableHeaderColor="primary"
+                                                    tableHead={[
+                                                        roomName
+                                                        ,"Time Start", "Time End","Movie Name"]}
+                                                    tableData={
+                                                        value.map(
+                                                            (valueIndex)=>{
+                                                                let a = valueIndex.slice(2);
+                                                                a.unshift("");
+                                                                return a;
+                                                            }
+                                                        )
+                                                    }
+                                                />
+                                            )}
                                     )
                                 }
                             </GridContainer>
